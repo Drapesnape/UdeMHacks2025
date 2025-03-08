@@ -1,19 +1,20 @@
-import {GoogleGenerativeAI} from "@google/generative-ai";
-import dotenv from "dotenv";
 
-dotenv.config();
+// async function getAIResponse() {
+//     const prompt = "say hello";  // Example prompt
+//     const response = await fetch("http://localhost:3000/generate", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ prompt }),
+//     });
 
-//Configuration
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-const generationConfig = {temperature: 0.9, topP: 1, topK:1, maxOutputTokens: 4096};
-
-const model = genAI.getGenerativeModel({model:"gemini-pro",generationConfig});  
-
-// async function generateContent() {
-//     try {
-//         const prompt = 
-//     }
+//     const data = await response.json();
+//     console.log(data.content);  // This will log the AI-generated content
+//     document.getElementById("prediction").innerText = data.content;
 // }
+
+// getAIResponse();
 
 function calculateNextPeriod() {
     let lastPeriod = document.getElementById("lastPeriod").value;
