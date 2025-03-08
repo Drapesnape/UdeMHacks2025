@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Period Tracker</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Period Tracker</h1>
+    <div class="container">
+        <label for="lastPeriod">Last Period Start Date:</label>
+        <input type="date" id="lastPeriod">
+        <label for="cycleLength">Average Cycle Length (days):</label>
+        <input type="number" id="cycleLength" placeholder="e.g., 28">
+        <button onclick="calculateNextPeriod()">Predict Next Period</button>
+        <p id="prediction"></p>
+
+        <!-- Pie chart for period countdown -->
+        <!-- <canvas id="periodChart" width="300" height="300"></canvas> -->
+
+        <h3>Symptom Logger</h3>
+        <input type="text" id="symptom" placeholder="Enter symptoms (e.g., cramps, headache)">
+        <button onclick="logSymptom()">Log Symptom</button>
+        <ul id="symptomList">
+            <p>List of symptoms:</p>
+        </ul>
+    </div>
+
+    <script src="../script/script.js"></script>
+</body>
+</html>

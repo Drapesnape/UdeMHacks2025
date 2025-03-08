@@ -1,0 +1,115 @@
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #fce4ec;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+h1 {
+    color: #d81b60;
+    font-size: 2.5em;
+    margin: 20px 0;
+}
+
+/* Container Styling */
+.container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Input and Button Styling */
+.container input, 
+.container textarea, 
+.container select, 
+.container button {
+    width: 100%; 
+    box-sizing: border-box; 
+    padding: 10px; 
+    margin-top: 10px; 
+    border: 1px solid #d81b60; 
+    border-radius: 5px; 
+    font-size: 1em;
+}
+
+/* Specific Input Styles */
+input[type="number"], 
+input[type="date"], 
+input[type="text"] {
+    margin-bottom: 20px; /* Add space between form fields */
+}
+
+/* Button Styling */
+button {
+    background-color: #d81b60;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 12px;
+}
+
+button:hover {
+    background-color: #ad1457;
+}
+
+/* Prediction Text Styling */
+#prediction {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #2980b9; /* Add a color for prediction text */
+}
+
+/* Symptom Logger Section */
+h3 {
+    margin-top: 30px;
+    font-size: 1.5em;
+    color: #34495e;
+}
+
+ul#symptomList {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+ul#symptomList li {
+    padding: 8px;
+    background: #f0f0f0;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: #242323;
+}
+
+ul#symptomList p {
+    text-align: left; /* Align text to the left */
+    font-weight: bold; /* Make the text bold */
+    margin: 0; /* Remove default margin */
+    padding: 5px 0; /* Optional: Add padding to create some space */
+}
+
+
+/* Responsive Design for Mobile */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    input, button {
+        font-size: 1em;
+    }
+
+    h3 {
+        font-size: 1.3em;
+    }
+}
