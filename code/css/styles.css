@@ -1,0 +1,156 @@
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #fce4ec;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+h1 {
+    color: #d81b60;
+    font-size: 2.5em;
+    margin: 20px 0;
+}
+
+/* Container Styling */
+.container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Input and Button Styling */
+.container input, 
+.container textarea, 
+.container select, 
+.container button {
+    width: 100%; 
+    box-sizing: border-box; 
+    padding: 10px; 
+    margin-top: 10px; 
+    border: 1px solid #d81b60; 
+    border-radius: 5px; 
+    font-size: 1em;
+}
+
+/* Specific Input Styles */
+input[type="number"], 
+input[type="date"], 
+input[type="text"] {
+    margin-bottom: 20px; /* Add space between form fields */
+}
+
+/* Button Styling */
+button {
+    background-color: #d81b60;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 12px;
+}
+
+button:hover {
+    background-color: #ad1457;
+}
+
+/* Prediction Text Styling */
+#prediction {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #2980b9; /* Add a color for prediction text */
+}
+
+/* Symptom Logger Section */
+h3 {
+    margin-top: 30px;
+    font-size: 1.5em;
+    color: #34495e;
+}
+
+/* Symptom Logger Section */
+ul#symptomList {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+    max-width: 100%; /* Make sure the list doesn't exceed the container's width */
+    overflow-x: auto; /* Allow horizontal scrolling if necessary */
+}
+
+
+ul#symptomList p {
+    text-align: left; /* Align text to the left */
+    font-weight: bold; /* Make the text bold */
+    margin: 0; /* Remove default margin */
+    padding: 5px 0; /* Optional: Add padding to create some space */
+}
+
+ul#symptomList li {
+    padding: 8px;
+    background: #f0f0f0;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: #242323;
+    display: flex;
+    align-items: center; /* Ensures vertical alignment */
+    flex-wrap: wrap; /* Allow the text to wrap if it is too long */
+    max-width: 100%; /* Prevent the list item from overflowing */
+    box-sizing: border-box; /* Ensure padding is accounted for in the width */
+}
+
+/* Make the text take up available space */
+ul#symptomList li span {
+    flex-grow: 1;
+    text-align: center;
+    word-wrap: break-word; /* Allow long words to wrap to the next line */
+    overflow-wrap: break-word; /* Ensures long words break correctly */
+}
+
+/* Style the button */
+ul#symptomList button {
+    background-color: transparent; /* No background */
+    color: #ff6347; /* Red color for the "X" */
+    border: none;
+    font-size: 17px; /* Make the "X" larger */
+    cursor: pointer;
+    padding: 0;
+    margin-left: auto; /* Push the button to the far right */
+    margin-top: 1px;
+    align-self: flex-start; /* Align the button vertically at the start of the li */
+}
+
+/* Button hover effect */
+ul#symptomList button:hover {
+    color: #ff4500; /* Darker red on hover */
+}
+
+/* Optional: Add ellipsis to long text that overflows */
+ul#symptomList li span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    input, button {
+        font-size: 1em;
+    }
+
+    h3 {
+        font-size: 1.3em;
+    }
+}
