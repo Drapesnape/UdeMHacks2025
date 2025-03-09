@@ -49,6 +49,12 @@ nav a {
     font-size: 1.2rem;
 }
 
+/* Special styling for draft page navigation links */
+body.draft-page nav a {
+    color: pink;
+  }
+  
+
 nav a:hover {
     text-decoration: underline;
 }
