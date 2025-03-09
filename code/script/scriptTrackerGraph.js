@@ -6,8 +6,8 @@ const centerY = canvas.height / 2;
 const today = new Date();
 let cycleLength = 28; // Default cycle length
 let periodLength = 5; // Default period length
-const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (today.getDate() % cycleLength));
-const dayInCycle = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+let startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (today.getDate() % cycleLength));
+let dayInCycle = Math.floor(Math.abs(today - startDate) / (1000 * 60 * 60 * 24)) % cycleLength;
 let ovulationDay = 14;
 let circleisHovered = false;
 let dotIsHovered = false;
@@ -17,6 +17,10 @@ let newDotDay = null;
 let dayHovered = null;
 const dotOffset = 30;
 const dots = [];
+localStorage.setItem("cycleLength", cycleLength);
+localStorage.setItem("periodLength", periodLength);
+localStorage.setItem("startDate", startDate);
+localStorage.setItem("dayInCycle", dayInCycle);
 
 function drawCircle() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -43,17 +47,17 @@ function drawDots() {
         const angle = (i / cycleLength) * 2 * Math.PI - Math.PI / 2;
         const x = centerX + (radius + dotOffset) * Math.cos(angle);
         const y = centerY + (radius + dotOffset) * Math.sin(angle);
-        dots.push({ x, y, radius: i === dayInCycle ? 16 : 8, day: i });
+        dots.push({ x, y, radius: i === cycleLength - dayInCycle - 2? 16 : 8, day: i });
         ctx.beginPath();
-        ctx.shadowColor = i === dayInCycle ? 'rgb(175, 44, 55)' : 'rgb(173, 138, 138)';
+        ctx.shadowColor = i === cycleLength - dayInCycle - 2? 'rgb(175, 44, 55)' : 'rgb(173, 138, 138)';
         ctx.shadowBlur = 5;
-        ctx.fillStyle = i === dayInCycle ? '#E63946' : '#F4C2C2';
+        ctx.fillStyle = i === cycleLength - dayInCycle - 2? '#E63946' : '#F4C2C2';
         if (dayHovered && dayHovered.day === i) {
             ctx.arc(x, y, dayHovered.radius === 16 ? 20 : 14, 0, 2 * Math.PI);
         } else {
-            ctx.arc(x, y, i === dayInCycle ? 16 : 8, 0, 2 * Math.PI);
+            ctx.arc(x, y, i === cycleLength - dayInCycle - 2? 16 : 8, 0, 2 * Math.PI);
         }
-        if (i <= periodLength) {
+        if (i < periodLength) {
             ctx.fillStyle = '#B22222';
             ctx.shadowColor = 'rgb(139, 24, 24)';
         }
@@ -75,7 +79,7 @@ function drawText() {
     ctx.fontWeight = 'bold';
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
-    ctx.fillText(`Day ${dayInCycle + 1} of ${cycleLength}`, centerX, centerY - 10);
+    ctx.fillText(`Day ${cycleLength - dayInCycle -1} of ${cycleLength}`, centerX, centerY - 10);
     ctx.fillText(today.toDateString(), centerX, centerY + 20);
 }
 
@@ -158,9 +162,12 @@ function animateGradient() {
     animationFrameId = requestAnimationFrame(animateGradient);
 }
 
-function updateTrackerGraph(cycleDays, periodDays) {
+function updateTrackerGraph(cycleDays, periodDays, lastDate) {
     cycleLength = cycleDays;
     periodLength = periodDays;
+    ovulationDay = Math.floor(cycleLength / 2);
+    startDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate());
+    dayInCycle = (Math.floor(Math.abs(today - startDate) / (1000 * 60 * 60 * 24)) % cycleLength);
     draw();
 }
 

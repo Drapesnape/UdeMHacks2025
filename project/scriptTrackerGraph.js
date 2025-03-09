@@ -7,9 +7,14 @@ const centerY = canvas.height / 2;
 const today = new Date();
 const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (today.getDate() % totalDays));
 const dayInCycle = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-let isHovered = false;
-let gradientValue = 0;
+let ovulationDay = 14;
+let circleisHovered = false;
+let dotIsHovered = false;
+let gradientValue = 0.2;
 let animationFrameId;
+let newDotDay = null;
+let periodLength = 5;
+let dayHovered = null;
 const dotOffset = 30;
 const dots = [];
 
@@ -17,7 +22,7 @@ function drawCircle() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = '#FF6B6B'; // Solid color
+    ctx.fillStyle = '#FF6B6B';
     ctx.fill();
     ctx.strokeStyle = '#FF6B6B';
     ctx.stroke();
@@ -25,7 +30,7 @@ function drawCircle() {
     // Draw gradient on top
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    const gradient = ctx.createRadialGradient(centerX, centerY, radius / 2, centerX, centerY, radius);
+    const gradient = ctx.createRadialGradient(centerX, centerY, radius / 1.5, centerX, centerY, radius);
     gradient.addColorStop(0, `rgba(255, 107, 107, ${gradientValue})`);
     gradient.addColorStop(1, `rgba(255, 0, 0, ${gradientValue})`);
     ctx.fillStyle = gradient;
@@ -38,13 +43,17 @@ function drawDots() {
         const angle = (i / totalDays) * 2 * Math.PI - Math.PI / 2;
         const x = centerX + (radius + dotOffset) * Math.cos(angle);
         const y = centerY + (radius + dotOffset) * Math.sin(angle);
-        dots.push({ x, y, radius: i === dayInCycle ? 16 : 8 });
+        dots.push({ x, y, radius: i === dayInCycle ? 16 : 8, day: i });
         ctx.beginPath();
-        ctx.arc(x, y, i === dayInCycle ? 16 : 8, 0, 2 * Math.PI);
-        ctx.shadowColor = i === dayInCycle ?'rgb(175, 44, 55)':'rgb(173, 138, 138)';
+        ctx.shadowColor = i === dayInCycle ? 'rgb(175, 44, 55)' : 'rgb(173, 138, 138)';
         ctx.shadowBlur = 5;
         ctx.fillStyle = i === dayInCycle ? '#E63946' : '#F4C2C2';
-        if (i <= 5) {
+        if (dayHovered && dayHovered.day === i) {
+            ctx.arc(x, y, dayHovered.radius === 16 ? 20 : 14, 0, 2 * Math.PI);
+        } else {
+            ctx.arc(x, y, i === dayInCycle ? 16 : 8, 0, 2 * Math.PI);
+        }
+        if (i <= periodLength) {
             ctx.fillStyle = '#B22222';
             ctx.shadowColor = 'rgb(139, 24, 24)';
         }
@@ -52,15 +61,19 @@ function drawDots() {
             ctx.fillStyle = '#E85D04';
             ctx.shadowColor = 'rgb(175, 67, 0)';
         }
+        if (i === ovulationDay) {
+            ctx.fillStyle = '#FFD700';
+            ctx.shadowColor = 'rgb(184, 156, 0)';
+        }
         ctx.fill();
-        ctx.shadowBlur = 0; // Reset shadowBlur after drawing each dot
-        ctx.fill();
+        ctx.shadowBlur = 0; // Reset shadowBlur after drawing each dot  
     }
 }
 
 function drawText() {
-    ctx.font = '16px Arial';
-    ctx.fillStyle = 'black';
+    ctx.font = '24px Andale mono, monospace';
+    ctx.fontWeight = 'bold';
+    ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
     ctx.fillText(`Day ${dayInCycle + 1} of ${totalDays}`, centerX, centerY - 10);
     ctx.fillText(today.toDateString(), centerX, centerY + 20);
@@ -86,43 +99,63 @@ function isMouseOverDot(mouseX, mouseY) {
     });
 }
 
+function getDotByDay(day) {
+    return dots.find(dot => dot.day === day);
+}
 
 canvas.addEventListener('mousemove', (event) => {
     const rect = canvas.getBoundingClientRect();
     const mouseX = event.clientX - rect.left;
     const mouseY = event.clientY - rect.top;
-    isHovered = isMouseOverCircle(mouseX, mouseY);
-    if (isHovered && !animationFrameId) {
+    circleisHovered = isMouseOverCircle(mouseX, mouseY);
+    if (circleisHovered && !animationFrameId) {
         animateGradient();
     }
-    if (isMouseOverDot(mouseX, mouseY) &&
-        !animationFrameId) {
-        animateDots();
+    dotIsHovered = isMouseOverDot(mouseX, mouseY);
+    if (dotIsHovered) {
+        dayHovered = dots.find(dot => {
+            const dx = mouseX - dot.x;
+            const dy = mouseY - dot.y;
+            return Math.sqrt(dx * dx + dy * dy) < dot.radius;
+        });
+    } else {
+        dayHovered = null;
     }
-    
+    draw();
 });
 
 canvas.addEventListener('mouseout', () => {
-    isHovered = false;
+    circleisHovered = false;
+    dotIsHovered = false;
+    dayHovered = null;
+    gradientValue = 0.2;
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+    draw();
 });
 
+canvas.addEventListener('click', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    clickedDot = dots.find(dot => {
+        const dx = mouseX - dot.x;
+        const dy = mouseY - dot.y;
+        return Math.sqrt(dx * dx + dy * dy) < dot.radius;
+    });
+    if (clickedDot) {
+    alert(`Dot clicked: Day ${clickedDot.day + 1}`);
+    }
+}); 
 
 function animateGradient() {
-    if (isHovered) {
-        gradientValue = Math.min(1, gradientValue + 0.1);
+    if (circleisHovered) {
+        gradientValue = Math.min(0.5, gradientValue + 0.1);
     } else {
-        gradientValue = Math.max(0, gradientValue - 0.1);
+        gradientValue = Math.max(0.2, gradientValue - 0.1);
     }
     draw();
     animationFrameId = requestAnimationFrame(animateGradient);
-}
-
-function animateDots() {
-    dots.forEach(dot => {
-        dot.radius = dot.radius === 3 ? 6 : 3;
-    });
-    draw();
-    requestAnimationFrame(animateDots);
 }
 
 draw();

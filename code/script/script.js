@@ -66,10 +66,10 @@ function calculateNextPeriod() {
         const currentDate = new Date();
         const daysRemaining = Math.floor((nextPeriod - currentDate) / (1000 * 60 * 60 * 24));
 
-        updateChart(daysRemaining, periodDays); // Pass the dynamic periodDays value
+        // updateChart(daysRemaining, periodDays); // Pass the dynamic periodDays value
 
         // Update the period tracker graph
-        updateTrackerGraph(cycleLength, periodDays);
+        updateTrackerGraph(cycleLength, periodDays, lastDate); // Pass the lastDate to the tracker graph
     } else {
         alert("Please enter all values!");
     }
