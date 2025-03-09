@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhance My Sex Life</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .advice-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 500px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4500a5;
+        }
+        .advice {
+            font-size: 18px;
+            color: #444;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enhance My Sex Life</h1>
+    <p>Cliquez sur le bouton pour obtenir des conseils sur la communication, la santé et le bien-être relationnel.</p>
+    
+    <div class="advice-box">
+        <button id="adviceButton">Obtenir des conseils</button>
+        <div class="advice" id="adviceText"></div>
+    </div>
+
+    <script>
+        // Liste des conseils à afficher de manière aléatoire
+        const adviceList = [
+            "La communication est essentielle. Parlez à votre partenaire de vos désirs et attentes.",
+            "Essayez des activités ensemble pour renforcer la complicité, comme le yoga ou la méditation.",
+            "Prenez soin de votre bien-être physique avec une alimentation équilibrée et de l'exercice régulier.",
+            "Évitez le stress excessif et apprenez à vous détendre. Le stress peut avoir un impact sur l'intimité.",
+            "Le sommeil est crucial pour une bonne santé physique et émotionnelle. Assurez-vous de dormir suffisamment.",
+            "Expérimentez avec votre partenaire de nouvelles façons de vous connecter émotionnellement et physiquement.",
+            "Un bon équilibre entre la vie professionnelle et personnelle améliore la qualité de la relation."
+        ];
+
+        // Fonction pour générer un conseil aléatoire
+        function showAdvice() {
+            const randomIndex = Math.floor(Math.random() * adviceList.length);
+            const adviceText = adviceList[randomIndex];
+            document.getElementById("adviceText").innerText = adviceText;
+        }
+
+        // Ajout de l'événement au bouton pour afficher un conseil
+        document.getElementById("adviceButton").addEventListener("click", showAdvice);
+    </script>
+
+</body>
+</html>
