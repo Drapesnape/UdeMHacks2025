@@ -1,0 +1,11 @@
+/* Color palette: primary (#F7A8B8); accent (#B388EB); background(#E8F5E9) text (#333333); highlight (#FF6B6B) */
+
+body{
+    background-color: #FFF;
+}
+
+#periodTracker {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+}
