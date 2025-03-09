@@ -4,10 +4,10 @@ const radius = 150;
 const centerX = canvas.width / 2;
 const centerY = canvas.height / 2;
 const today = new Date();
-let cycleLength = 28; // Default cycle length
-let periodLength = 5; // Default period length
-let startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (today.getDate() % cycleLength));
-let dayInCycle = Math.floor(Math.abs(today - startDate) / (1000 * 60 * 60 * 24)) % cycleLength;
+let cycleLength = parseInt(localStorage.getItem("cycleLength")) || 28; // Default cycle length
+let periodLength = parseInt(localStorage.getItem("periodLength")) || 5; // Default period length
+let startDate = new Date(localStorage.getItem("startDate")) || new Date(today.getFullYear(), today.getMonth(), today.getDate() - (today.getDate() % cycleLength));
+let dayInCycle = parseInt(localStorage.getItem("dayInCycle")) || Math.floor(Math.abs(today - startDate) / (1000 * 60 * 60 * 24)) % cycleLength;
 let ovulationDay = 14;
 let circleisHovered = false;
 let dotIsHovered = false;
@@ -17,10 +17,10 @@ let newDotDay = null;
 let dayHovered = null;
 const dotOffset = 30;
 const dots = [];
-localStorage.setItem("cycleLength", cycleLength);
-localStorage.setItem("periodLength", periodLength);
-localStorage.setItem("startDate", startDate);
-localStorage.setItem("dayInCycle", dayInCycle);
+
+if (isNaN(startDate.getTime())) {
+    startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (today.getDate() % cycleLength));
+}
 
 function drawCircle() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -61,11 +61,11 @@ function drawDots() {
             ctx.fillStyle = '#B22222';
             ctx.shadowColor = 'rgb(139, 24, 24)';
         }
-        if (i >= 12 && i <= 17) {
+        if (i >= 11 && i <= 16) {
             ctx.fillStyle = '#E85D04';
             ctx.shadowColor = 'rgb(175, 67, 0)';
         }
-        if (i === ovulationDay) {
+        if (i === ovulationDay - 1) {
             ctx.fillStyle = '#FFD700';
             ctx.shadowColor = 'rgb(184, 156, 0)';
         }
@@ -122,8 +122,41 @@ canvas.addEventListener('mousemove', (event) => {
             const dy = mouseY - dot.y;
             return Math.sqrt(dx * dx + dy * dy) < dot.radius;
         });
+        
+        // Create floating window
+        const tooltip = document.createElement('div');
+        tooltip.style.position = 'fixed';
+        tooltip.style.left = `${event.clientX + 10}px`;
+        tooltip.style.top = `${event.clientY + 10}px`;
+        tooltip.style.backgroundColor = 'rgba(255, 150, 173, 0.9)';
+        tooltip.style.padding = '10px';
+        tooltip.style.borderRadius = '5px';
+        tooltip.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
+        tooltip.style.zIndex = '1000';
+        tooltip.id = 'day-tooltip';
+
+        // Add content to tooltip
+        const dayNumber = dayHovered.day + 1;
+        let dayType = 'Regular day';
+        if (dayHovered.day < periodLength) dayType = 'Period day';
+        if (dayHovered.day >= 11 && dayHovered.day <= 16) dayType = 'Fertile window';
+        if (dayHovered.day === ovulationDay - 1) dayType = 'Ovulation day';
+        const dotDate = new Date(startDate);
+        dotDate.setDate(dotDate.getDate() -cycleLength);
+        dotDate.setDate(startDate.getDate() + dayHovered.day + 4);
+        dayType += `<br>${dotDate.toDateString()}`;
+        
+        tooltip.innerHTML = `Day ${dayNumber}<br>${dayType}`;
+        
+        // Remove existing tooltip if any
+        const existingTooltip = document.getElementById('day-tooltip');
+        if (existingTooltip) existingTooltip.remove();
+        
+        document.body.appendChild(tooltip);
     } else {
         dayHovered = null;
+        const existingTooltip = document.getElementById('day-tooltip');
+        if (existingTooltip) existingTooltip.remove();
     }
     draw();
 });
@@ -131,6 +164,8 @@ canvas.addEventListener('mousemove', (event) => {
 canvas.addEventListener('mouseout', () => {
     circleisHovered = false;
     dotIsHovered = false;
+    const existingTooltip = document.getElementById('day-tooltip');
+    if (existingTooltip) existingTooltip.remove();
     dayHovered = null;
     gradientValue = 0.2;
     cancelAnimationFrame(animationFrameId);
@@ -165,10 +200,18 @@ function animateGradient() {
 function updateTrackerGraph(cycleDays, periodDays, lastDate) {
     cycleLength = cycleDays;
     periodLength = periodDays;
-    ovulationDay = Math.floor(cycleLength / 2);
     startDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate());
     dayInCycle = (Math.floor(Math.abs(today - startDate) / (1000 * 60 * 60 * 24)) % cycleLength);
     draw();
 }
 
 draw();
+
+document.getElementById('centerButton').addEventListener('click', () => {
+    localStorage.setItem("cycleLength", cycleLength);
+    localStorage.setItem("periodLength", periodLength);
+    localStorage.setItem("startDate", startDate.toISOString());
+    localStorage.setItem("dayInCycle", dayInCycle);
+    alert('Cycle logged successfully!');
+    draw(); // Add this line to ensure the graph is rendered
+});

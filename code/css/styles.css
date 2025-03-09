@@ -22,7 +22,7 @@ nav {
     background-color: #2A3D66;
     /* Deep blue */
     padding: 20px;
-    position: sticky;
+    position:sticky;
     top: 0;
     z-index: 100;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -79,11 +79,17 @@ h1 {
     /* Match the deep blue of the nav */
     font-size: 2.5em;
     margin: 20px 0;
+    text-align: center;
 }
 
 /* Container Styling */
+canvas {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
 .container {
-    max-width: 400px;
+    max-width: 600px;
     margin: auto;
     padding: 20px;
     background: white;
@@ -127,6 +133,20 @@ button {
 button:hover {
     background-color: #1c2f46;
     /* Darker shade of blue on hover */
+}
+
+#centerButton {
+    /* Center the button */
+    text-align: center;
+    max-width: fit-content;
+    background-color: #f5b9cd;
+    border: 2px solid #e25c89;
+    
+}
+
+#centerButton:hover {
+    background-color: #c999a9;
+    /* Light pink on hover */
 }
 
 /* Prediction Text Styling */
