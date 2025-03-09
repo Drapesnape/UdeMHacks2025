@@ -10,4 +10,3 @@ App for women health.
   
 ## Problems with the current project
 - footer overflow at tracker.html
-- 
