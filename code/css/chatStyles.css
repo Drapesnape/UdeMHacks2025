@@ -5,13 +5,55 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
 }
 
+/* Sticky Navigation Bar */
+nav {
+    background-color: #2A3D66; /* Deep blue */
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Added margin to separate from the content */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin: 0 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    background-color: #d81b60;
+    color: white;
+    padding: 20px;
+    margin: 0 0 20px 0; /* Added bottom margin */
+    text-align: center;
+    border-bottom: 2px solid #ad1457;
+    font-size: 24px; /* Increase heading size */
+}
+
+/* Chat container with spacing */
 .container {
     background-color: #fff;
     border-radius: 15px;
@@ -21,29 +63,21 @@ body {
     max-width: 700px;
     display: flex;
     flex-direction: column;
-    height: 90vh; /* Take up 90% of the viewport height */
+    margin: auto;
+    height: calc(100vh - 200px); /* Adjusted for better spacing */
 }
 
-h1 {
-    background-color: #d81b60;
-    color: white;
-    padding: 20px;
-    margin: 0;
-    text-align: center;
-    border-bottom: 2px solid #ad1457;
-    font-size: 24px; /* Increase heading size */
-}
-
+/* Chatbox */
 #chatbox {
     flex-grow: 1;
     padding: 20px;
-    height: 500px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     border-bottom: 2px solid #ddd;
 }
 
+/* Chat message styles */
 #chatbox p {
     margin-bottom: 10px;
     padding: 10px;
@@ -64,14 +98,14 @@ h1 {
     align-self: flex-end;
 }
 
+/* Input and button styling */
 #userInput {
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     border: none;
     border-top: 1px solid #ddd;
-    width: calc(100% - 120px); /* Reduced width */
+    width: calc(100% - 120px);
     flex-grow: 1;
-    border-radius: 0;   
-    font-size: 18px; /* Smaller font size */
+    font-size: 18px;
     outline: none;
     box-sizing: border-box;
 }
@@ -85,7 +119,7 @@ button {
     border-radius: 10px;
     font-size: 16px;
     width: 90px;
-    margin: 10px 5px; /* Margin between buttons */
+    margin: 10px 5px;
 }
 
 button:hover {
@@ -96,27 +130,47 @@ button:focus {
     outline: none;
 }
 
-/* Aligning buttons side by side */
+/* Button alignment */
 #buttonContainer {
     display: flex;
-    justify-content: space-between; /* Space between buttons */
+    justify-content: space-between;
     padding: 10px;
     border-top: 2px solid #ddd;
 }
 
-button#sendButton {
-    width: 48%; /* Adjust width of the Send button */
-}
-
+button#sendButton,
 button#stopButton {
-    width: 48%; /* Adjust width of the Stop button */
+    width: 48%;
 }
 
-/* Optional: Add a little more responsiveness for small screens */
+/* Footer with added spacing */
+footer {
+    background-color: #2A3D66;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 30px; /* Added top margin for separation */
+}
+
+footer a {
+    color: #F1C40F;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Fixes */
 @media (max-width: 600px) {
     .container {
         width: 95%;
         max-width: 100%;
+    }
+
+    nav, footer {
+        padding: 15px;
     }
 
     #chatbox {
