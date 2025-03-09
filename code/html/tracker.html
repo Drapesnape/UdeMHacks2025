@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,15 @@
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
+    <nav>
+        <ul>
+            <li><a href="./index.html">Main Page</a></li>
+            <li><a href="./chat.html">Chatbot</a></li>
+            <li><a href="./tracker.html">Period Tracker</a></li>
+        </ul>
+    </nav>
     <h1>Period Tracker</h1>
     <div class="container">
         <label for="lastPeriod">Last Period Start Date:</label>
@@ -22,6 +31,9 @@
         <!-- Pie chart for period countdown -->
         <canvas id="periodChart" width="300" height="300"></canvas>
 
+        <!-- Add canvas for period tracker graph -->
+        <canvas id="periodTracker" width="400" height="400"></canvas>
+
         <h3>Symptom Logger</h3>
         <input type="text" id="symptom" placeholder="Enter symptoms (e.g., cramps, headache)">
         <button onclick="logSymptom()">Log Symptom</button>
@@ -29,7 +41,16 @@
             <p>List of symptoms:</p>
         </ul>
     </div>
-
+    <footer>
+        <p>
+            &copy; 2025. Tous droits réservés. |
+            <a href="foire.html">Foire aux questions</a> |
+            <a href="contact.html">Contact</a>
+        </p>
+    </footer>
+    <canvas id="periodTracker" width="400" height="400"></canvas>
+    <script src="../script/scriptTrackerGraph.js"></script>
     <script src="../script/script.js"></script>
 </body>
+
 </html>

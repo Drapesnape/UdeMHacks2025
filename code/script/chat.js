@@ -3,7 +3,7 @@ let typingInterval;
 let currentMessage = '';
 
 document.getElementById('sendButton').addEventListener('click', sendMessage);
-document.getElementById('userInput').addEventListener('keypress', function(event) {
+document.getElementById('userInput').addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
         sendMessage();
     }

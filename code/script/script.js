@@ -23,7 +23,7 @@ function initChart() {
                 },
                 tooltip: {
                     callbacks: {
-                        label: function(tooltipItem) {
+                        label: function (tooltipItem) {
                             const label = tooltipItem.label;
                             const value = tooltipItem.raw;
                             return `${label}: ${value} days`;
@@ -40,7 +40,7 @@ function updateChart(daysRemaining, periodDays) {
     const totalDays = daysRemaining + periodDays; // Total cycle length
     const otherDays = totalDays - periodDays; // Remaining days
     const updatedData = [daysRemaining, periodDays, otherDays];
-    
+
     // Update chart data and re-render
     periodChart.data.datasets[0].data = updatedData;
     periodChart.update();
@@ -54,7 +54,7 @@ function calculateNextPeriod() {
     if (lastPeriod && cycleLength && periodDays) {
         let lastDate = new Date(lastPeriod);
         let nextPeriod = new Date(lastDate.setDate(lastDate.getDate() + cycleLength));
-        document.getElementById("prediction").innerText = 
+        document.getElementById("prediction").innerText =
             "Your next period is expected around: " + nextPeriod.toDateString();
 
         // Save to LocalStorage
@@ -67,6 +67,9 @@ function calculateNextPeriod() {
         const daysRemaining = Math.floor((nextPeriod - currentDate) / (1000 * 60 * 60 * 24));
 
         updateChart(daysRemaining, periodDays); // Pass the dynamic periodDays value
+
+        // Update the period tracker graph
+        updateTrackerGraph(cycleLength, periodDays);
     } else {
         alert("Please enter all values!");
     }
