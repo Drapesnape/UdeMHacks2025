@@ -144,9 +144,9 @@ canvas.addEventListener('click', (event) => {
         return Math.sqrt(dx * dx + dy * dy) < dot.radius;
     });
     if (clickedDot) {
-    alert(`Dot clicked: Day ${clickedDot.day + 1}`);
+        alert(`Dot clicked: Day ${clickedDot.day + 1}`);
     }
-}); 
+});
 
 function animateGradient() {
     if (circleisHovered) {

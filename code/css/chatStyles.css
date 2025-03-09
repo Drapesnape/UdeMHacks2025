@@ -1,7 +1,17 @@
 /* Chat Styles */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #e3f2fd;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,13 +21,15 @@ body {
 
 /* Sticky Navigation Bar */
 nav {
-    background-color: #2A3D66; /* Deep blue */
+    background-color: #2A3D66;
+    /* Deep blue */
     padding: 20px;
     position: sticky;
     top: 0;
     z-index: 100;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px; /* Added margin to separate from the content */
+    margin-bottom: 20px;
+    /* Added margin to separate from the content */
 }
 
 nav ul {
@@ -43,14 +55,35 @@ nav a:hover {
     text-decoration: underline;
 }
 
-h1 {
-    background-color: #d81b60;
+footer {
+    background-color: #2A3D66;
     color: white;
     padding: 20px;
-    margin: 0 0 20px 0; /* Added bottom margin */
     text-align: center;
-    border-bottom: 2px solid #ad1457;
-    font-size: 24px; /* Increase heading size */
+    font-size: 1.1rem;
+    margin-top: 30px;
+    /* Added top margin for separation */
+}
+
+footer a {
+    color: #F1C40F;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    background-color: #2A3D66;
+    color: white;
+    padding: 20px;
+    margin: 0 0 20px 0;
+    /* Added bottom margin */
+    text-align: center;
+    border-bottom: 2px solid #2A3D66;
+    font-size: 24px;
+    /* Increase heading size */
 }
 
 /* Chat container with spacing */
@@ -64,7 +97,8 @@ h1 {
     display: flex;
     flex-direction: column;
     margin: auto;
-    height: calc(100vh - 200px); /* Adjusted for better spacing */
+    height: calc(100vh - 200px);
+    /* Adjusted for better spacing */
 }
 
 /* Chatbox */
@@ -114,7 +148,7 @@ h1 {
 button {
     padding: 15px;
     border: none;
-    background-color: #d81b60;
+    background-color: #2A3D66;
     color: white;
     cursor: pointer;
     border-radius: 10px;
@@ -124,7 +158,7 @@ button {
 }
 
 button:hover {
-    background-color: #ad1457;
+    background-color: #1E90FF;
 }
 
 button:focus {
@@ -144,25 +178,6 @@ button#stopButton {
     width: 48%;
 }
 
-/* Footer with added spacing */
-footer {
-    background-color: #2A3D66;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    font-size: 1.1rem;
-    margin-top: 30px; /* Added top margin for separation */
-}
-
-footer a {
-    color: #F1C40F;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
 /* Responsive Fixes */
 @media (max-width: 600px) {
     .container {
@@ -170,7 +185,8 @@ footer a:hover {
         max-width: 100%;
     }
 
-    nav, footer {
+    nav,
+    footer {
         padding: 15px;
     }
 

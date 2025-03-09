@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors"; // Import the CORS package
 
 // Load environment variables
-dotenv.config({path:"../../.env"});
+dotenv.config({ path: "../../.env" });
 
 // Configuration
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
