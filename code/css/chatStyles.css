@@ -1,0 +1,137 @@
+/* Chat Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 90%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    height: 90vh; /* Take up 90% of the viewport height */
+}
+
+h1 {
+    background-color: #d81b60;
+    color: white;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+    border-bottom: 2px solid #ad1457;
+    font-size: 24px; /* Increase heading size */
+}
+
+#chatbox {
+    flex-grow: 1;
+    padding: 20px;
+    height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #ddd;
+}
+
+#chatbox p {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+#chatbox p:nth-child(odd) {
+    background-color: #f0f0f0;
+    align-self: flex-start;
+}
+
+#chatbox p:nth-child(even) {
+    background-color: #e0f7fa;
+    align-self: flex-end;
+}
+
+#userInput {
+    padding: 10px; /* Reduced padding */
+    border: none;
+    border-top: 1px solid #ddd;
+    width: calc(100% - 120px); /* Reduced width */
+    flex-grow: 1;
+    border-radius: 0;   
+    font-size: 18px; /* Smaller font size */
+    outline: none;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 15px;
+    border: none;
+    background-color: #d81b60;
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 90px;
+    margin: 10px 5px; /* Margin between buttons */
+}
+
+button:hover {
+    background-color: #ad1457;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Aligning buttons side by side */
+#buttonContainer {
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+    padding: 10px;
+    border-top: 2px solid #ddd;
+}
+
+button#sendButton {
+    width: 48%; /* Adjust width of the Send button */
+}
+
+button#stopButton {
+    width: 48%; /* Adjust width of the Stop button */
+}
+
+/* Optional: Add a little more responsiveness for small screens */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        max-width: 100%;
+    }
+
+    #chatbox {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button {
+        width: 80px;
+    }
+
+    #userInput {
+        font-size: 14px;
+    }
+}
