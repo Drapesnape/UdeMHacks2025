@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul des jours de fertilité</title>
+</head>
+<body>
+    <h1>Calcul des jours de fertilité maximale</h1>
+    <form id="fertilityForm">
+        <label for="startDate">Date de début des dernières règles :</label>
+        <input type="date" id="startDate" required><br><br>
+
+        <label for="cycleLength">Durée moyenne du cycle (en jours) :</label>
+        <input type="number" id="cycleLength" min="21" max="35" required><br><br>
+
+        <button type="submit">Calculer mes jours fertiles</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('fertilityForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Récupérer les valeurs
+            const startDate = new Date(document.getElementById('startDate').value);
+            const cycleLength = parseInt(document.getElementById('cycleLength').value);
+
+            // Calcul des jours fertiles
+            const ovulationDay = new Date(startDate);
+            ovulationDay.setDate(startDate.getDate() + (cycleLength - 14)); // Ovulation environ 14 jours avant les prochaines règles
+
+            const fertileStart = new Date(ovulationDay);
+            fertileStart.setDate(ovulationDay.getDate() - 5); // Fenêtre fertile commence 5 jours avant
+
+            const fertileEnd = new Date(ovulationDay);
+            fertileEnd.setDate(ovulationDay.getDate() + 1); // Fenêtre fertile termine 1 jour après
+
+            // Affichage des résultats
+            document.getElementById('result').innerHTML = `
+                <p>Votre période fertile estimée est du 
+                <strong>${fertileStart.toDateString()}</strong> 
+                au 
+                <strong>${fertileEnd.toDateString()}</strong>.
+                </p>
+            `;
+
+            // Appel à une notification (facultatif)
+            if (Notification.permission === "granted") {
+                new Notification("Rappel : Vos jours fertiles commencent bientôt !");
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        new Notification("Rappel : Vos jours fertiles commencent bientôt !");
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
