@@ -145,7 +145,50 @@
       <a href="contact.html">Contact</a>
     </p>
   </footer>
+
+  <div class="container">
+    <h1>Recevez des notifications</h1>
+    <p>Nous aimerions vous envoyer des rappels importants !</p>
+    <button id="notifyButton" onclick="sendNotification()" disabled>Envoyer la Notification</button>
+  </div>
+
+  <script>
+    if ('Notification' in window && navigator.serviceWorker) {
+      // Demander la permission pour envoyer des notifications
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          document.getElementById('notifyButton').disabled = false;
+          console.log('Permission accordée pour les notifications');
+        } else {
+          console.log('Permission refusée pour les notifications');
+        }
+      });
+
+      // Enregistrer un Service Worker (si ce n'est pas déjà fait)
+      navigator.serviceWorker.register('/sw.js').then(registration => {
+        console.log('Service Worker enregistré avec succès:', registration);
+      }).catch(error => {
+        console.error('L\'enregistrement du Service Worker a échoué:', error);
+      });
+    } else {
+      alert('Votre navigateur ne supporte pas les notifications push.');
+    }
+
+    // Fonction pour envoyer une notification
+    function sendNotification() {
+      if (Notification.permission === "granted") {
+        navigator.serviceWorker.ready.then(registration => {
+          registration.showNotification('Rappel', {
+            body: 'N\'oubliez pas de finaliser votre achat avant la fin de l\'offre!',
+            icon: '/images/notification-icon.png',  // Assurez-vous d'avoir une icône dans le répertoire images
+            badge: '/images/badge-icon.png'         // Badge pour l'icône
+          });
+        });
+      } else {
+        alert('Vous devez autoriser les notifications pour utiliser cette fonctionnalité.');
+      }
+    } 
+    
+  </script>
 </body>
-
-
 </html>
