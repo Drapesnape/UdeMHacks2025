@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi du cycle menstruel avec l'intelligence artificielle</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Navigation bar */
+        nav {
+            background-color: #2A3D66; /* Deep blue */
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.2rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header Section */
+        header {
+            background-color: #3A5A98; /* Dark blue */
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            margin: 20px 0;
+        }
+
+        /* Section styling */
+        .section {
+            padding: 50px 20px;
+            margin: 40px auto;
+            max-width: 1100px;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            color: #2A3D66;
+            margin-bottom: 20px;
+            text-align: center; /* Centrage du titre */
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            text-align: center; /* Centrage du texte */
+        }
+
+        .cta-button {
+            background-color: #F1C40F;
+            color: white;
+            padding: 14px 36px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            display: block; /* Makes it a block element */
+            margin-left: auto;
+            margin-right: auto; /* Centers the button */
+        }
+
+        .cta-button:hover {
+            background-color: #F39C12;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #2A3D66;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        footer a {
+            color: #F1C40F;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Specific Section (Cycle Calculation) */
+        #Calcul-de-cycle {
+            background-color: #E3F2FD; /* Light blue background */
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="./chat.html">Chatbot</a></li>
+            <li><a href="#services">Nos Services</a></li>
+            <li><a href="./tracker.html">Period Tracker</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1>Suivi du Cycle Menstruel avec Gemini AI</h1>
+        <p>Une gestion simplifiée de votre santé féminine grâce à des prédictions précises basées sur l'IA.</p>
+    </header>
+
+    <div id="bienvenue" class="section">
+        <h2>Présentation de l'application</h2>
+        <p>Cette application permet de suivre votre cycle menstruel avec l'aide de l'intelligence artificielle pour prévoir vos périodes fertiles, les symptômes et optimiser votre bien-être.</p>
+    </div>
+
+    <div id="services" class="section">
+        <h2>Nos Services</h2>
+        <p>Voici quelques-uns des services que notre application vous propose :</p>
+        <ul style="text-align: left; max-width: 700px; margin: 0 auto; font-size: 1.1rem; color: #555;">
+            <li><strong>Suivi personnalisé :</strong> Organisez vos journées en harmonie avec votre cycle menstruel.</li>
+            <li><strong>Alertes de fertilité :</strong> Recevez des notifications pour connaître vos jours de fertilité maximale.</li>
+            <li><strong>Analyse des symptômes :</strong> Suivez les effets hormonaux et anticipez les changements dans votre corps.</li>
+            <li><strong>Conseils de santé :</strong> Recevez des recommandations pour mieux gérer votre cycle menstruel.</li>
+        </ul>
+        <button class="cta-button">Découvrez comment ça marche</button>
+    </div>
+
+    <div id="Calcul-de-cycle" class="section">
+        <h2>Calcul de la période de menstruation et d'ovulation</h2>
+        <p>Découvrez les jours à risque en fonction de votre cycle menstruel. Utilisez notre outil pour mieux comprendre votre corps.</p>
+        <button class="cta-button">Découvrez comment le cycle fonctionne</button>
+    </div>
+
+    <footer>
+        <p>
+          &copy; 2025. Tous droits réservés. |
+          <a href="foire.html">Foire aux questions</a> |
+          <a href="contact.html">Contact</a>
+        </p>
+    </footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+

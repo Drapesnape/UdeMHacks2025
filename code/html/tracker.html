@@ -22,6 +22,9 @@
         <!-- Pie chart for period countdown -->
         <canvas id="periodChart" width="300" height="300"></canvas>
 
+        <!-- Add canvas for period tracker graph -->
+        <canvas id="periodTracker" width="400" height="400"></canvas>
+
         <h3>Symptom Logger</h3>
         <input type="text" id="symptom" placeholder="Enter symptoms (e.g., cramps, headache)">
         <button onclick="logSymptom()">Log Symptom</button>
@@ -29,7 +32,8 @@
             <p>List of symptoms:</p>
         </ul>
     </div>
-
+    <canvas id="periodTracker" width="400" height="400"></canvas>
+    <script src="../script/scriptTrackerGraph.js"></script>
     <script src="../script/script.js"></script>
 </body>
 </html>

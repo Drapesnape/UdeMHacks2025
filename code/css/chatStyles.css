@@ -70,6 +70,7 @@ h1 {
 /* Chatbox */
 #chatbox {
     flex-grow: 1;
+    height: 400px;
     padding: 20px;
     overflow-y: auto;
     display: flex;
