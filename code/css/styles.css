@@ -136,6 +136,12 @@ ul#symptomList li span {
     white-space: nowrap; /* Prevent text from wrapping */
 }
 
+#periodTracker {
+    display: flex;
+
+    align-items: center;
+}
+
 /* Responsive Design for Mobile */
 @media (max-width: 480px) {
     h1 {
