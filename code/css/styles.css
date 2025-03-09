@@ -136,6 +136,18 @@ ul#symptomList li span {
     white-space: nowrap; /* Prevent text from wrapping */
 }
 
+
+/* Modification de Eli */
+
+.feature-btn {
+    padding: 20px;
+    font-size: 1.1em;
+}
+
+#feature-content {
+    margin-top: 20px;
+}
+
 /* Responsive Design for Mobile */
 @media (max-width: 480px) {
     h1 {

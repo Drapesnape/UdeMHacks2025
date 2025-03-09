@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Cycle Menstruel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4c1ee;
+            padding: 20px;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #a72852;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #c11e93;
+        }
+
+        #resultat {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #100d0d;
+        }
+
+        .info {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculateur de Cycle Menstruel et Ovulation</h1>
+    
+    <div class="container">
+        <label for="debutR">Premier jour des dernières règles:</label>
+        <input type="date" id="debutR">
+        <br>
+
+        <label for="cycle">Durée moyenne du cycle (en jours):</label>
+        <input type="number" id="cycle" placeholder="Ex: 28">
+        <br>
+
+        <label for="menstruation">Durée des menstruations (en jours) :</label>
+        <input type="number" id="menstruation" placeholder="Ex: 5">
+        <br>
+
+        <button onclick="calculerCycle()">Calculer le cycle (en jours)</button>
+
+        <p id="resultat"></p>
+    </div>
+
+    <script>
+        function calculerCycle() {
+            const debutRegles = new Date(document.getElementById('debutR').value);
+            const dureeCycle = parseInt(document.getElementById('cycle').value);
+            const dureeMenstruation = parseInt(document.getElementById('menstruation').value);
+            const resultat = document.getElementById('resultat');
+
+            if (!debutRegles || isNaN(dureeCycle) || isNaN(dureeMenstruation)) {
+                resultat.textContent = "Merci de remplir tous les champs correctement.";
+                return;
+            }
+
+            // Calculer la date de fin des menstruations
+            const finMenstruation = new Date(debutRegles);
+            finMenstruation.setDate(debutRegles.getDate() + dureeMenstruation);
+
+            // Calculer la date d'ovulation (14 jours avant le début du prochain cycle)
+            const ovulation = new Date(debutRegles);
+            ovulation.setDate(debutRegles.getDate() + dureeCycle - 14);
+
+            // Calculer la date de début du prochain cycle
+            const prochainCycle = new Date(debutRegles);
+            prochainCycle.setDate(debutRegles.getDate() + dureeCycle);
+
+            // Afficher les résultats
+            resultat.innerHTML = `
+                <strong>Résultats :</strong><br>
+                - Fin des menstruations : ${finMenstruation.toLocaleDateString()}<br>
+                - Période d'ovulation : ${ovulation.toLocaleDateString()}<br>
+                - Début du prochain cycle : ${prochainCycle.toLocaleDateString()}<br>
+                <span class="info">(La période fertile est généralement de 4-5 jours autour de l'ovulation)</span>
+            `;
+        }
+    </script>
+
+</body>
+</html>
