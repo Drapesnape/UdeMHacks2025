@@ -10,7 +10,7 @@ const dayInCycle = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
 let ovulationDay = 14;
 let circleisHovered = false;
 let dotIsHovered = false;
-let gradientValue = 0;
+let gradientValue = 0.2;
 let animationFrameId;
 let newDotDay = null;
 let periodLength = 5;
@@ -22,7 +22,7 @@ function drawCircle() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = '#FF6B6B'; // Solid color
+    ctx.fillStyle = '#FF6B6B';
     ctx.fill();
     ctx.strokeStyle = '#FF6B6B';
     ctx.stroke();
@@ -128,17 +128,31 @@ canvas.addEventListener('mouseout', () => {
     circleisHovered = false;
     dotIsHovered = false;
     dayHovered = null;
-    gradientValue = 0;
+    gradientValue = 0.2;
     cancelAnimationFrame(animationFrameId);
     animationFrameId = null;
     draw();
 });
 
+canvas.addEventListener('click', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+    clickedDot = dots.find(dot => {
+        const dx = mouseX - dot.x;
+        const dy = mouseY - dot.y;
+        return Math.sqrt(dx * dx + dy * dy) < dot.radius;
+    });
+    if (clickedDot) {
+    alert(`Dot clicked: Day ${clickedDot.day + 1}`);
+    }
+}); 
+
 function animateGradient() {
     if (circleisHovered) {
         gradientValue = Math.min(0.5, gradientValue + 0.1);
     } else {
-        gradientValue = Math.max(0, gradientValue - 0.1);
+        gradientValue = Math.max(0.2, gradientValue - 0.1);
     }
     draw();
     animationFrameId = requestAnimationFrame(animateGradient);
