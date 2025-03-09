@@ -143,7 +143,7 @@ canvas.addEventListener('mousemove', (event) => {
         if (dayHovered.day === ovulationDay - 1) dayType = 'Ovulation day';
         const dotDate = new Date(startDate);
         dotDate.setDate(dotDate.getDate() -cycleLength);
-        dotDate.setDate(startDate.getDate() + dayHovered.day + 4);
+        dotDate.setDate(startDate.getDate() + dayHovered.day + 1);
         dayType += `<br>${dotDate.toDateString()}`;
         
         tooltip.innerHTML = `Day ${dayNumber}<br>${dayType}`;
