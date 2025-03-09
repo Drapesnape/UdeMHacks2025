@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 # PRODUCT_NAME - Health App for women
 ## Description
 App for women health.  
@@ -12,4 +11,4 @@ App for women health.
   
 ## Problems with the current project
 - footer overflow at tracker.html
->>>>>>> e79972a7f55b49ce2207ceff89cc7083994bbc96
+- maybe fix index.html content
