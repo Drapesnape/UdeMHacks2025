@@ -34,77 +34,67 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 setupPeriodTracking();
                 break;
-            // ... other cases ...
 
             case 'get-pregnant':
-            featureContent.innerHTML = `
-                <h2>CycleSense - Get Pregnant</h2>
-                <div id="fertility-tracker">
-                    <label for="cycle-length">Cycle Length (days):</label>
-                    <input type="number" id="cycle-length" placeholder="Ex: 28">
-                    <br>
-                    <label for="last-period-start">Last Period Start Date:</label>
-                    <input type="date" id="last-period-start">
-                    <br>
-                    <label for="bbt">Basal Body Temperature (°F):</label>
-                    <input type="number" id="bbt" step="0.1">
-                    <br>
-                    <button onclick="calculateFertileWindow()">Calculate Fertile Window</button>
-                    <div id="fertility-results"></div>
-                    <div id="bbt-chart"></div> </div>
-            `;
-            setupGetPregnant();
-            break;
-    // ... (other cases) ...
-        default:
-            featureContent.innerHTML = `<p>Feature content for ${feature} will be implemented here.</p>`;
-    }
-}
+                featureContent.innerHTML = `
+                    <h2>CycleSense - Get Pregnant</h2>
+                    <div id="fertility-tracker">
+                        <label for="cycle-length">Cycle Length (days):</label>
+                        <input type="number" id="cycle-length" placeholder="Ex: 28">
+                        <br>
+                        <label for="last-period-start">Last Period Start Date:</label>
+                        <input type="date" id="last-period-start">
+                        <br>
+                        <label for="bbt">Basal Body Temperature (°F):</label>
+                        <input type="number" id="bbt" step="0.1">
+                        <br>
+                        <button onclick="calculateFertileWindow()">Calculate Fertile Window</button>
+                        <div id="fertility-results"></div>
+                        <canvas id="bbt-chart" width="400" height="200"></canvas>
+                    </div>
+                `;
+                setupGetPregnant();
+                break;
 
-function setupGetPregnant() {
-    window.calculateFertileWindow = function() {
-        const cycleLength = parseInt(document.getElementById('cycle-length').value);
-        const lastPeriodStart = new Date(document.getElementById('last-period-start').value);
-        const bbt = parseFloat(document.getElementById('bbt').value);
-        const resultsDiv = document.getElementById('fertility-results');
-
-        if (isNaN(cycleLength) || !lastPeriodStart || isNaN(bbt)) {
-            resultsDiv.textContent = "Please fill in all fields correctly.";
-            return;
+            default:
+                featureContent.innerHTML = `<p>Feature content for ${feature} will be implemented here.</p>`;
         }
+    }
 
-        // 1. **Estimate Ovulation:**
-        const estimatedOvulation = new Date(lastPeriodStart);
-        estimatedOvulation.setDate(lastPeriodStart.getDate() + cycleLength - 14);
-
-        // 2. **Calculate Fertile Window:**
-        const fertileWindowStart = new Date(estimatedOvulation);
-        fertileWindowStart.setDate(estimatedOvulation.getDate() - 5);
-        const fertileWindowEnd = new Date(estimatedOvulation);
-        fertileWindowEnd.setDate(estimatedOvulation.getDate() + 1); // Include day after ovulation
-
-        // 3. **Display Results:**
-        resultsDiv.innerHTML = `
-            <strong>Estimated Fertile Window:</strong><br>
-            ${fertileWindowStart.toLocaleDateString()} to ${fertileWindowEnd.toLocaleDateString()}
-        `;
-        
+    function setupGetPregnant() {
         window.calculateFertileWindow = function() {
-            // ... (your existing code) ...
-    
+            const cycleLength = parseInt(document.getElementById('cycle-length').value);
+            const lastPeriodStart = new Date(document.getElementById('last-period-start').value);
+            const bbt = parseFloat(document.getElementById('bbt').value);
+            const resultsDiv = document.getElementById('fertility-results');
+
+            if (isNaN(cycleLength) || !lastPeriodStart || isNaN(bbt)) {
+                resultsDiv.textContent = "Please fill in all fields correctly.";
+                return;
+            }
+
+            const estimatedOvulation = new Date(lastPeriodStart);
+            estimatedOvulation.setDate(lastPeriodStart.getDate() + cycleLength - 14);
+
+            const fertileWindowStart = new Date(estimatedOvulation);
+            fertileWindowStart.setDate(estimatedOvulation.getDate() - 5);
+            const fertileWindowEnd = new Date(estimatedOvulation);
+            fertileWindowEnd.setDate(estimatedOvulation.getDate() + 1);
+
+            resultsDiv.innerHTML = `
+                <strong>Estimated Fertile Window:</strong><br>
+                ${fertileWindowStart.toLocaleDateString()} to ${fertileWindowEnd.toLocaleDateString()}
+            `;
+
             // 4. Basal Body Temperature Chart:
             const bbtChartCanvas = document.getElementById('bbt-chart');
-    
-            // Get BBT data from local storage (or initialize if it doesn't exist)
-            let bbtData = JSON.parse(localStorage.getItem('bbtData')) ||;
-    
-            // Add the new BBT data point with the current date
+
+            let bbtData = JSON.parse(localStorage.getItem('bbtData')) || [];
+
             bbtData.push({ date: lastPeriodStart.toLocaleDateString(), bbt });
-    
-            // Store the updated BBT data in local storage
+
             localStorage.setItem('bbtData', JSON.stringify(bbtData));
-    
-            // Create the chart
+
             new Chart(bbtChartCanvas, {
                 type: 'line',
                 data: {
@@ -136,22 +126,6 @@ function setupGetPregnant() {
             });
         };
     }
-        // 4. **Basal Body Temperature Chart (Implementation needed):**
-        // Use a charting library (e.g., Chart.js) to create a chart
-        // that displays the user's BBT data over time.
-        // You'll need to store and retrieve BBT data (consider using local storage).
-        // Example (using Chart.js):
-        // const bbtChart = new Chart(document.getElementById('bbt-chart'), {
-        //     type: 'line',
-        //     data: {
-        //         labels: /* Dates */,
-        //         datasets: [{
-        //             label: 'BBT (°F)',
-        //             data: /* BBT values */
-        //         }]
-        //     }
-        // });
-
 
     function setupPeriodTracking() {
         window.calculerCycle = function() {
@@ -183,6 +157,4 @@ function setupGetPregnant() {
             `;
         };
     }
-
-    // ... other setup functions ...
 });
