@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <br>
                         <button onclick="calculateFertileWindow()">Calculate Fertile Window</button>
                         <div id="fertility-results"></div>
+                        <canvas id="fertile-window-chart" width="200" height="200"></canvas>
                         <canvas id="bbt-chart" width="400" height="200"></canvas>
                     </div>
                 `;
@@ -85,6 +86,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 <strong>Estimated Fertile Window:</strong><br>
                 ${fertileWindowStart.toLocaleDateString()} to ${fertileWindowEnd.toLocaleDateString()}
             `;
+
+            // ... (your existing code) ...
+
+// Fertile Window Pie Chart:
+const fertileWindowChartCanvas = document.getElementById('fertile-window-chart');
+const ovulationDate = estimatedOvulation.toLocaleDateString();
+
+// Sample data (replace with actual calculated dates)
+const fertileWindowData = {
+    // Five days before ovulation
+    [fertileWindowStart.toLocaleDateString()]: 1, 
+    [new Date(fertileWindowStart.setDate(fertileWindowStart.getDate() + 1)).toLocaleDateString()]: 1, 
+    [new Date(fertileWindowStart.setDate(fertileWindowStart.getDate() + 1)).toLocaleDateString()]: 1, 
+    [new Date(fertileWindowStart.setDate(fertileWindowStart.getDate() + 1)).toLocaleDateString()]: 1, 
+    [new Date(fertileWindowStart.setDate(fertileWindowStart.getDate() + 1)).toLocaleDateString()]: 1, 
+    // Day of ovulation
+    [ovulationDate]: 1,
+    // Day after ovulation
+    [fertileWindowEnd.toLocaleDateString()]: 1 
+};
+
+const chartData = {
+    labels: Object.keys(fertileWindowData),
+    datasets: [{
+        data: Object.values(fertileWindowData),
+        backgroundColor: Object.keys(fertileWindowData).map(date => {
+            if (date === ovulationDate) {
+                return 'rgba(255, 99, 132, 0.8)'; // Ovulation day (red)
+            } else if (date === fertileWindowEnd.toLocaleDateString()) {
+                return 'rgba(54, 162, 235, 0.8)'; // Day after (blue)
+            } else {
+                return 'rgba(255, 159, 64, 0.8)'; // Other fertile days (orange)
+            }
+        }),
+        hoverOffset: 4
+    }]
+};
+
+new Chart(fertileWindowChartCanvas, {
+    type: 'pie',
+    data: chartData,
+    options: {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        return `${context.label}: ${context.parsed}%`;
+                    }
+                }
+            }
+        }
+    }
+});
+
+// ... (rest of your code) ...
 
             // 4. Basal Body Temperature Chart:
             const bbtChartCanvas = document.getElementById('bbt-chart');

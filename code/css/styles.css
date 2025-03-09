@@ -226,6 +226,14 @@ ul#symptomList li span {
     /* Prevent text from wrapping */
 }
 
+#fertility-tracker {
+    text-align: center;
+}
+
+#fertile-window-chart {
+    margin: 20px auto; /* Center the chart */
+}
+
 /* Responsive Design for Mobile */
 @media (max-width: 480px) {
     h1 {
