@@ -32,7 +32,10 @@
         <p id="prediction"></p>
 
         <!-- Add canvas for period tracker graph -->
-        <canvas id="periodTracker" width="400" height="400"></canvas>
+        <div class="canvas-container" style="position: relative;">
+            <canvas id="periodTracker" width="400" height="400"></canvas>
+            <button id="centerButton" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, +110%);">Log cycle</button>
+        </div>
 
         <h3>Symptom Logger</h3>
         <input type="text" id="symptom" placeholder="Enter symptoms (e.g., cramps, headache)">
